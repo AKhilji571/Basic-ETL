@@ -1,0 +1,43 @@
+[2024-07-17T02:08:04.489+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-17T02:08:04.521+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: simple_airflow_dag.task1 scheduled__2024-07-16T00:00:00+00:00 [queued]>
+[2024-07-17T02:08:04.531+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: simple_airflow_dag.task1 scheduled__2024-07-16T00:00:00+00:00 [queued]>
+[2024-07-17T02:08:04.531+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2024-07-17T02:08:04.548+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): task1> on 2024-07-16 00:00:00+00:00
+[2024-07-17T02:08:04.590+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1238) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-17T02:08:04.592+0000] {standard_task_runner.py:64} INFO - Started process 1240 to run task
+[2024-07-17T02:08:04.592+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'simple_***_dag', 'task1', 'scheduled__2024-07-16T00:00:00+00:00', '--job-id', '8', '--raw', '--subdir', 'DAGS_FOLDER/simple_dag.py', '--cfg-path', '/tmp/tmpgedsd6va']
+[2024-07-17T02:08:04.595+0000] {standard_task_runner.py:91} INFO - Job 8: Subtask task1
+[2024-07-17T02:08:04.656+0000] {task_command.py:426} INFO - Running <TaskInstance: simple_airflow_dag.task1 scheduled__2024-07-16T00:00:00+00:00 [running]> on host 8f6756dc8ee6
+[2024-07-17T02:08:04.763+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='simple_***_dag' AIRFLOW_CTX_TASK_ID='task1' AIRFLOW_CTX_EXECUTION_DATE='2024-07-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-16T00:00:00+00:00'
+[2024-07-17T02:08:04.766+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-17T02:08:04.767+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-17T02:08:04.768+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/simple_dag.py", line 11, in unarchive
+    os.makedirs(extract_to, exist_ok=True)
+  File "<frozen os>", line 215, in makedirs
+  File "<frozen os>", line 215, in makedirs
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [Errno 13] Permission denied: '/Users'
+[2024-07-17T02:08:04.780+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=simple_***_dag, task_id=task1, run_id=scheduled__2024-07-16T00:00:00+00:00, execution_date=20240716T000000, start_date=20240717T020804, end_date=20240717T020804
+[2024-07-17T02:08:04.793+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 8 for task task1 ([Errno 13] Permission denied: '/Users'; 1240)
+[2024-07-17T02:08:04.817+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-07-17T02:08:04.835+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-17T02:08:04.837+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
